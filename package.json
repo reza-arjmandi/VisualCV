@@ -1,9 +1,9 @@
 {
-  "name": "electron-play",
-  "productName": "electron-play",
+  "name": "visualcv",
+  "productName": "visualcv",
   "version": "1.0.0",
   "description": "My Electron application description",
-  "main": ".vite/build/main.js",
+  "main": ".webpack/main",
   "scripts": {
     "start": "electron-forge start",
     "package": "electron-forge package",
@@ -14,7 +14,7 @@
   "keywords": [],
   "author": {
     "name": "reza",
-    "email": "arjmandi.re@workpuls.com"
+    "email": "reza.arjmandi@workpuls.com"
   },
   "license": "MIT",
   "devDependencies": {
@@ -24,16 +24,26 @@
     "@electron-forge/maker-squirrel": "^7.2.0",
     "@electron-forge/maker-zip": "^7.2.0",
     "@electron-forge/plugin-auto-unpack-natives": "^7.2.0",
-    "@electron-forge/plugin-vite": "^7.2.0",
+    "@electron-forge/plugin-webpack": "^7.2.0",
+    "@types/react": "^18.2.48",
+    "@types/react-dom": "^18.2.18",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
-    "electron": "21.4.4",
+    "@vercel/webpack-asset-relocator-loader": "1.7.3",
+    "css-loader": "^6.0.0",
+    "electron": "28.2.0",
     "eslint": "^8.0.1",
     "eslint-plugin-import": "^2.25.0",
+    "fork-ts-checker-webpack-plugin": "^7.2.13",
+    "node-loader": "^2.0.0",
+    "style-loader": "^3.0.0",
+    "ts-loader": "^9.2.2",
     "ts-node": "^10.0.0",
     "typescript": "~4.5.4"
   },
   "dependencies": {
-    "electron-squirrel-startup": "^1.0.0"
+    "electron-squirrel-startup": "^1.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   }
 }
