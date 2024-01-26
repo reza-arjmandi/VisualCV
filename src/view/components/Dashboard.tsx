@@ -14,9 +14,13 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import LayersIcon from '@mui/icons-material/Layers';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import { mainListItems, secondaryListItems } from './listItems';
-import Deposits from './Deposits';
+import CvProcess from './cv-process';
+import { SliderConfig } from '../../models';
 
 function Copyright(props: any) {
   return (
@@ -86,9 +90,19 @@ const defaultTheme = createTheme();
 
 export default function Dashboard() {
   const [open, setOpen] = React.useState(true);
+  const [activeProcess, setActiveProcess] = React.useState(0);
+  const [processList, setProcessList] = React.useState([]);
+
   const toggleDrawer = () => {
     setOpen(!open);
   };
+
+  React.useEffect(() => {
+    async function getchProcessList() {
+      setProcessList(await backend.getProcessesList());
+    }
+    getchProcessList();
+  }, []);
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -138,9 +152,16 @@ export default function Dashboard() {
           </Toolbar>
           <Divider />
           <List component="nav">
-            {mainListItems}
-            <Divider sx={{ my: 1 }} />
-            {secondaryListItems}
+            {
+              processList.map((p, idx) => (
+                <ListItemButton onClick={() => setActiveProcess(idx)}>
+                  <ListItemIcon>
+                    <LayersIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={p.processName} />
+                </ListItemButton>
+              ))
+            }
           </List>
         </Drawer>
         <Box
@@ -156,19 +177,23 @@ export default function Dashboard() {
           }}
         >
           <Toolbar />
-          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+          <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
               {/* Recent Deposits */}
-              <Grid item xs={12} md={4} lg={3}>
+              <Grid item xs={12} >
                 <Paper
                   sx={{
                     p: 2,
                     display: 'flex',
                     flexDirection: 'column',
-                    height: 240,
+                    height: '100%',
                   }}
                 >
-                  <Deposits />
+                  {processList.length > 0 
+                    && <CvProcess 
+                          process={processList[activeProcess]}
+                        />
+                  }
                 </Paper>
               </Grid>
             </Grid>

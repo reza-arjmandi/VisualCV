@@ -1,16 +1,12 @@
 #include "napi.h"
 
 #include <memory>
+#include "readImage.h"
 
 using namespace Napi;
 
-Napi::Value Sample(const Napi::CallbackInfo& info)
-{
-    return info.Env().Null;
-}
-
 Napi::Object Init(Napi::Env env, Napi::Object exports) {
-  exports["sample"] = Napi::Function::New(env, Sample);
+  exports["readImage"] = Napi::Function::New(env, readImage);
   return exports;
 }
 
